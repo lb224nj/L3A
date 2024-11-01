@@ -1,0 +1,4 @@
+[submodule "L2M"]
+	path = L2M
+	url = git@github.com:lb224nj/1dv610_L2.git
+	branch = L3
