@@ -1,0 +1,5 @@
+## VISION
+This purpose of this application can in short be desscribed as way to make the everyday life easier. It aims to provide users with a clear understanding of their financial helath and spending habits. By making use of statistical insights, the app enables users to make more informed decisions regardring their budget and spending habits.
+
+### BACKGROUND
+Considering how many expenses the average person has on a daily bases it is easy to see the importance on keeping track on where the money is spent. Often times people underestimate expenses over time or simply forget them because of automated payment and so on. And pherhaps this is not so strange strange since most people do not want to spend a lot of time going through account billings and making calculations in order to come up with budgeting. The point of this application is to solve this problem by making the user gain insight about personal finance in an easy way. All the relevant calculations will be automated inside the application and the uyser will only need to add the expenses related to the specific categories they were spent on.  
