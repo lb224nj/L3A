@@ -29,4 +29,21 @@ class MonthlyExpenseRecord {
   #increaseExpense (category, amount) {
     this.expenses[category] += amount
   }
+
+  getTotalExpenses() {
+    const expensesArray = this.#getExpensesArray()
+    return this.#calculateTotalExpenses(expensesArray)
+  }
+
+  #getExpensesArray () {
+    return Object.values(this.expenses)
+  }
+
+  #calculateTotalExpenses (expensesArray) {
+    let total = 0
+    for (let i = 0; i < expensesArray.length; i++) {
+      total += expensesArray[i]
+    }
+    return total
+  }
 }
