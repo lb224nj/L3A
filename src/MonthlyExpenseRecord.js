@@ -1,4 +1,4 @@
-class MonthlyExpenseRecord {
+export class MonthlyExpenseRecord {
   /**
    * Stores expenses connected to categories via objects
    */
