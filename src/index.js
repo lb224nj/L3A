@@ -1,4 +1,4 @@
 import { BudgetAssistant } from './BudgetAssistant.js'
 
 const app = new BudgetAssistant()
-app.startApp()
+app.displayWelcomeMessage()

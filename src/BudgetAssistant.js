@@ -2,11 +2,10 @@ import { MonthlyExpenseRecord } from './MonthlyExpenseRecord.js'
 
 export class BudgetAssistant {
   constructor() {
-    this.monthlyExpenses = {}
     this.currentMonth = null 
   }
 
-  startApp() {
+  displayWelcomeMessage() {
     this.#displayMessageToUser()
   }
 
