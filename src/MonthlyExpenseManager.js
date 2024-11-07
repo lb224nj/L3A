@@ -1,15 +1,23 @@
-import { MonthlyExpenseRecord } from './MonthlyExpenseRecordd.js'
+import { MonthlyExpenseRecord } from './MonthlyExpenseRecord.js'
 
 export class MonthlyExpenseManager {
   constructor() {
     this.monthlyExpenses = {}
   }
 
-  getOrAddMonthlyExpenseRecord (month) {
+  getMonthlyExpenseRecord (month) {
     if (this.#hasMonthlyExpenseRecord(month)) {
       return this.#getMonthlyExpenseRecord(month)
     } else {
-      return this.#addMonthlyExpenseRecord(month)
+      return null
+    }
+  }
+
+  addMonthlyExpenseRecord (month) {
+    if (!this.#hasMonthlyExpenseRecord(month)) {
+      return this.#createAndStoreMonthlyExpenseRecord(month)
+    } else {
+      return this.#getMonthlyExpenseRecord(month)
     }
   }
 
@@ -21,13 +29,21 @@ export class MonthlyExpenseManager {
     return this.monthlyExpenses[month] || null
   }
 
-  #addMonthlyExpenseRecord (month) {
-    const newRecord = new MonthlyExpenseRecord(month)
-    this.#storeMonthlyExpenseRecord(month, newRecord)
-    return newRecord
+  #createAndStoreMonthlyExpenseRecord (month) {
+    const newMonthlyExpenseRecord = new MonthlyExpenseRecord(month)
+    this.#storeMonthlyExpenseRecord(month, newMonthlyExpenseRecord)
+    return newMonthlyExpenseRecord
   }
 
   #storeMonthlyExpenseRecord (month, record) {
     this.monthlyExpenses[month] = record
+  }
+
+  getAllMonthlyExpenseRecords () {
+    return this.#retrieveAllExpenseRecords()
+  }
+
+  #retrieveAllExpenseRecords () {
+    return Object.values(this.monthlyExpenses)
   }
 }
