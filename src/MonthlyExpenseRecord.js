@@ -16,6 +16,11 @@ export class MonthlyExpenseRecord {
       other: 0
     }
   }
+
+  getcategoriesOfExpenses() {
+    return Object.keys(this.expenses)
+  }
+
   addExpense (category, amount) {
     if (this.#isValidCategory(category)) {
       this.#increaseExpense(category, amount)

@@ -1,11 +1,13 @@
 import readlineSync from 'readline-sync'
 import { MonthlyExpenseManager } from './MonthlyExpenseManager.js'
+import { MonthlyExpenseRecord } from './MonthlyExpenseRecord.js'
 
 export class BudgetAssistant {
   constructor() {
     this.currentMonth = null
     this.monthlyExpenseManager = new MonthlyExpenseManager()
     this.validMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    this.expenseCategories = new MonthlyExpenseRecord()
   }
 
   displayWelcomeMessage() {
@@ -24,7 +26,7 @@ export class BudgetAssistant {
     console.log('Please select a month:')
   }
 
-  
+
   displayMonthOptions() {
     this.#createMonthOptions()
   }
@@ -49,6 +51,7 @@ export class BudgetAssistant {
     if (this.#isValidMonthIndex(indexOfMonth)) {
       const selectedMonth = this.validMonths[indexOfMonth]
       this.#displaySelectedMonthMessage(selectedMonth)
+      this.currentMonth = selectedMonth
     } else {
       this.#displayInvalidMonthMessage()
     }
@@ -59,11 +62,72 @@ export class BudgetAssistant {
   }
 
   #displaySelectedMonthMessage(month) {
-    console.log('You have selected ' + month)
+    console.log(`You have selected  ${month}`)
   }
 
   #displayInvalidMonthMessage() {
     console.log('Invalid month selection. Please try again.')
+  }
+
+  displayAddExpenseMessage() {
+    this.#createAddExpenseMessage()
+  }
+
+  #createAddExpenseMessage() {
+    console.log('Please enter the expense details:')
+  }
+
+  displayExpenseCategoriesOptions() {
+    this.#createExpenseCategorieOptions()
+  }
+
+  #createExpenseCategorieOptions() {
+    const categories = this.#getExpenseCategories()
+    console.log('Select an expense category:')
+    categories.forEach((category, index) => {
+      console.log(`${index + 1}. ${category}`)
+    })
+  }
+
+  #getExpenseCategories() {
+    return Object.keys(this.expenseCategories.expenses)
+  }
+  
+  handleCategorieSelection() {
+    const categoryIndex = this.#getUserCategoryChoice()
+    const categorySelected = this.#selectCategoryByIndex(categoryIndex)
+    this.#displayCategorySelectionMessage(categorySelected)
+
+  }
+
+  #getUserCategoryChoice() {
+    const userChoice = readlineSync.question('Enter the number of the specific category you want to select: ')
+    return Number(userChoice) - 1
+  }
+
+  #selectCategoryByIndex(categoryIndex) {
+    return this.#isValidCategoryIndex(categoryIndex) ? this.#getExpenseCategories()[categoryIndex] : null
+  }
+
+  #isValidCategoryIndex(categoryIndex) {
+    const categories = this.#getExpenseCategories()
+    return categoryIndex >= 0 && categoryIndex < categories.length
+  }
+
+  #displayCategorySelectionMessage(categorySelected) {
+    if (categorySelected) {
+      this.#createSelectedCategoryMessage(categorySelected)
+    } else {
+      this.#createInvalidCategoryMessage()
+    }
+  }
+
+  #createSelectedCategoryMessage(categorySelected) {
+    console.log('You have selected ' + categorySelected)
+  }
+
+  #createInvalidCategoryMessage() {
+    console.log('Invalid category selection. Please try again.')
   }
 
 }

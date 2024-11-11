@@ -5,13 +5,11 @@ export class MonthlyExpenseManager {
     this.monthlyExpenses = {}
   }
 
-  getMonthlyExpenseRecord (month) {
-    if (this.#hasMonthlyExpenseRecord(month)) {
-      return this.#getMonthlyExpenseRecord(month)
-    } else {
-      return null
-    }
+  addExpenseToMonth (month, expense) {
+    const monthlyExpenseRecord = this.addMonthlyExpenseRecord(month)
+    monthlyExpenseRecord.addExpense(expense.category, expense.amount)
   }
+
 
   addMonthlyExpenseRecord (month) {
     if (!this.#hasMonthlyExpenseRecord(month)) {
