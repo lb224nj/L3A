@@ -44,4 +44,13 @@ export class MonthlyExpenseManager {
   #retrieveAllExpenseRecords () {
     return Object.values(this.monthlyExpenses)
   }
+
+  getTotalExpensesForMonth (month) {
+    const monthlyExpenseRecord = this.#getMonthlyExpenseRecord(month)
+    if (monthlyExpenseRecord) {
+      return monthlyExpenseRecord.getTotalExpenses()
+    } else {
+      return 0
+    }
+  }
 }

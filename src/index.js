@@ -12,6 +12,7 @@ app.displayExpenseCategoriesOptions()
 const selectedCategory = app.handleCategorieSelection()
 
 if (selectedCategory) {
-  app.displayAddExpenseMessage()
   app.promptAddExpense(selectedCategory)
 }
+
+app.displayBalanceForMonth()

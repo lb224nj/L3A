@@ -69,14 +69,6 @@ export class BudgetAssistant {
     console.log('Invalid month selection. Please try again.')
   }
 
-  displayAddExpenseMessage() {
-    this.#createAddExpenseMessage()
-  }
-
-  #createAddExpenseMessage() {
-    console.log('Please enter the expense details:')
-  }
-
   displayExpenseCategoriesOptions() {
     this.#createExpenseCategorieOptions()
   }
@@ -114,6 +106,17 @@ export class BudgetAssistant {
   #handleExpenseAmount(category, amount) {
     this.monthlyExpenseManager.addExpenseToMonth(this.currentMonth, { category, amount })
     console.log(`Added $${amount} to ${category} for ${this.currentMonth}`)
+  }
+
+  displayBalanceForMonth() {
+    if (this.#isMonthSelected()) {
+      const totalExpenses = this.monthlyExpenseManager.getTotalExpensesForMonth(this.currentMonth)
+      this.#createBalanceMessage(totalExpenses)
+    }
+  }
+
+  #createBalanceMessage(totalExpenses) {
+    console.log(`Total expenses for ${this.currentMonth}: $${totalExpenses}`)
   }
   
   handleCategorieSelection() {
