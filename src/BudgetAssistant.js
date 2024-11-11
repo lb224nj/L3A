@@ -9,31 +9,35 @@ export class BudgetAssistant {
   }
 
   displayWelcomeMessage() {
-    this.#displayWelcomeMessageToUser()
+    this.#createWelcomeMessage()
   }
 
-  #displayWelcomeMessageToUser() {
+  #createWelcomeMessage() {
     console.log('Welcome to the Budget Assistant!')
   }
 
   displaySelectMonthMessage() {
-    this.#displaySelectMonthMessageToUser()
+    this.#createSelectMonthMessage()
   }
 
-  #displaySelectMonthMessageToUser() {
+  #createSelectMonthMessage() {
     console.log('Please select a month:')
   }
 
-  selectMonth() {
-    this.#displayMonthOptions()
-    const indexOfMonth = this.#getUserMonthChoice()
-    this.#handleMonthSelection(indexOfMonth)
+  
+  displayMonthOptions() {
+    this.#createMonthOptions()
   }
 
-  #displayMonthOptions() {
+  #createMonthOptions() {
     for (let i = 0; i < this.validMonths.length; i++) {
       console.log((i + 1) + '. ' + this.validMonths[i])
     }
+  }
+
+  selectMonth() {
+    const indexOfMonth = this.#getUserMonthChoice()
+    this.#handleMonthSelection(indexOfMonth)
   }
 
   #getUserMonthChoice() {
