@@ -9,6 +9,9 @@ app.displayMonthOptions()
 app.selectMonth()
 
 app.displayExpenseCategoriesOptions()
-app.handleCategorieSelection()
+const selectedCategory = app.handleCategorieSelection()
 
-app.displayAddExpenseMessage()
+if (selectedCategory) {
+  app.displayAddExpenseMessage()
+  app.promptAddExpense(selectedCategory)
+}

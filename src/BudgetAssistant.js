@@ -92,12 +92,46 @@ export class BudgetAssistant {
   #getExpenseCategories() {
     return Object.keys(this.expenseCategories.expenses)
   }
+
+  promptAddExpense(selectedCategory) {
+    if (!this.#isMonthSelected()) return
+
+    if (selectedCategory) {
+      const expenseAmount = this.#getExpenseAmount()
+      this.#handleExpenseAmount(selectedCategory, expenseAmount)
+    }
+  }
+
+  #getExpenseAmount() {
+    const expenseAmount = parseFloat(readlineSync.question('Enter the expense amount: '))
+    if (isNaN(expenseAmount)) {
+      console.log('Invalid expense amount. Try again.')
+      return this.#getExpenseAmount()
+    }
+    return expenseAmount
+  }
+
+  #handleExpenseAmount(category, amount) {
+    this.monthlyExpenseManager.addExpenseToMonth(this.currentMonth, { category, amount })
+    console.log(`Added $${amount} to ${category} for ${this.currentMonth}`)
+  }
   
   handleCategorieSelection() {
+    if (!this.#isMonthSelected()) return
+
     const categoryIndex = this.#getUserCategoryChoice()
     const categorySelected = this.#selectCategoryByIndex(categoryIndex)
     this.#displayCategorySelectionMessage(categorySelected)
+    return categorySelected
 
+  }
+
+  #isMonthSelected() {
+    if (!this.currentMonth) {
+      console.log('Select a month first.')
+      return false
+    }
+    return true
   }
 
   #getUserCategoryChoice() {
@@ -129,5 +163,6 @@ export class BudgetAssistant {
   #createInvalidCategoryMessage() {
     console.log('Invalid category selection. Please try again.')
   }
+  
 
 }
