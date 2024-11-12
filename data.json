@@ -1,0 +1,16 @@
+{
+  "January": {
+    "month": "January",
+    "expenses": {
+      "groceries": 31,
+      "utilities": 0,
+      "entertainment": 0,
+      "transportation": 0,
+      "clothing": 0,
+      "education": 0,
+      "healthcare": 0,
+      "rent": 0,
+      "other": 0
+    }
+  }
+}

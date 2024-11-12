@@ -17,7 +17,7 @@ export class MonthlyExpenseRecord {
     }
   }
 
-  getcategoriesOfExpenses() {
+  getcategoriesOfExpenses () {
     return Object.keys(this.expenses)
   }
 
@@ -35,7 +35,7 @@ export class MonthlyExpenseRecord {
     this.expenses[category] += amount
   }
 
-  getTotalExpenses() {
+  getTotalExpenses () {
     const expensesArray = this.#getExpensesArray()
     return this.#calculateTotalExpenses(expensesArray)
   }

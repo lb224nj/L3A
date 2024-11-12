@@ -3,51 +3,50 @@ import { MonthlyExpenseManager } from './MonthlyExpenseManager.js'
 import { MonthlyExpenseRecord } from './MonthlyExpenseRecord.js'
 
 export class BudgetAssistant {
-  constructor() {
+  constructor () {
     this.currentMonth = null
     this.monthlyExpenseManager = new MonthlyExpenseManager()
     this.validMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     this.expenseCategories = new MonthlyExpenseRecord()
   }
 
-  displayWelcomeMessage() {
+  displayWelcomeMessage () {
     this.#createWelcomeMessage()
   }
 
-  #createWelcomeMessage() {
+  #createWelcomeMessage () {
     console.log('Welcome to the Budget Assistant!')
   }
 
-  displaySelectMonthMessage() {
+  displaySelectMonthMessage () {
     this.#createSelectMonthMessage()
   }
 
-  #createSelectMonthMessage() {
+  #createSelectMonthMessage () {
     console.log('Please select a month:')
   }
 
-
-  displayMonthOptions() {
+  displayMonthOptions () {
     this.#createMonthOptions()
   }
 
-  #createMonthOptions() {
+  #createMonthOptions () {
     for (let i = 0; i < this.validMonths.length; i++) {
       console.log((i + 1) + '. ' + this.validMonths[i])
     }
   }
 
-  selectMonth() {
+  selectMonth () {
     const indexOfMonth = this.#getUserMonthChoice()
     this.#handleMonthSelection(indexOfMonth)
   }
 
-  #getUserMonthChoice() {
-      const userChoice = readlineSync.question('Enter the number of specific month you want to select: ')
-      return Number(userChoice) - 1
+  #getUserMonthChoice () {
+    const userChoice = readlineSync.question('Enter the number of specific month you want to select: ')
+    return Number(userChoice) - 1
   }
 
-  #handleMonthSelection(indexOfMonth) {
+  #handleMonthSelection (indexOfMonth) {
     if (this.#isValidMonthIndex(indexOfMonth)) {
       const selectedMonth = this.validMonths[indexOfMonth]
       this.#displaySelectedMonthMessage(selectedMonth)
@@ -57,23 +56,23 @@ export class BudgetAssistant {
     }
   }
 
-  #isValidMonthIndex(indexOfMonth) {
+  #isValidMonthIndex (indexOfMonth) {
     return indexOfMonth >= 0 && indexOfMonth < this.validMonths.length
   }
 
-  #displaySelectedMonthMessage(month) {
+  #displaySelectedMonthMessage (month) {
     console.log(`You have selected  ${month}`)
   }
 
-  #displayInvalidMonthMessage() {
+  #displayInvalidMonthMessage () {
     console.log('Invalid month selection. Please try again.')
   }
 
-  displayExpenseCategoriesOptions() {
+  displayExpenseCategoriesOptions () {
     this.#createExpenseCategorieOptions()
   }
 
-  #createExpenseCategorieOptions() {
+  #createExpenseCategorieOptions () {
     const categories = this.#getExpenseCategories()
     console.log('Select an expense category:')
     categories.forEach((category, index) => {
@@ -81,11 +80,11 @@ export class BudgetAssistant {
     })
   }
 
-  #getExpenseCategories() {
+  #getExpenseCategories () {
     return Object.keys(this.expenseCategories.expenses)
   }
 
-  promptAddExpense(selectedCategory) {
+  promptAddExpense (selectedCategory) {
     if (!this.#isMonthSelected()) return
 
     if (selectedCategory) {
@@ -94,7 +93,7 @@ export class BudgetAssistant {
     }
   }
 
-  #getExpenseAmount() {
+  #getExpenseAmount () {
     const expenseAmount = parseFloat(readlineSync.question('Enter the expense amount: '))
     if (isNaN(expenseAmount)) {
       console.log('Invalid expense amount. Try again.')
@@ -103,33 +102,32 @@ export class BudgetAssistant {
     return expenseAmount
   }
 
-  #handleExpenseAmount(category, amount) {
+  #handleExpenseAmount (category, amount) {
     this.monthlyExpenseManager.addExpenseToMonth(this.currentMonth, { category, amount })
     console.log(`Added $${amount} to ${category} for ${this.currentMonth}`)
   }
 
-  displayBalanceForMonth() {
+  displayBalanceForMonth () {
     if (this.#isMonthSelected()) {
       const totalExpenses = this.monthlyExpenseManager.getTotalExpensesForMonth(this.currentMonth)
       this.#createBalanceMessage(totalExpenses)
     }
   }
 
-  #createBalanceMessage(totalExpenses) {
+  #createBalanceMessage (totalExpenses) {
     console.log(`Total expenses for ${this.currentMonth}: $${totalExpenses}`)
   }
-  
-  handleCategorieSelection() {
+
+  handleCategorieSelection () {
     if (!this.#isMonthSelected()) return
 
     const categoryIndex = this.#getUserCategoryChoice()
     const categorySelected = this.#selectCategoryByIndex(categoryIndex)
     this.#displayCategorySelectionMessage(categorySelected)
     return categorySelected
-
   }
 
-  #isMonthSelected() {
+  #isMonthSelected () {
     if (!this.currentMonth) {
       console.log('Select a month first.')
       return false
@@ -137,21 +135,21 @@ export class BudgetAssistant {
     return true
   }
 
-  #getUserCategoryChoice() {
+  #getUserCategoryChoice () {
     const userChoice = readlineSync.question('Enter the number of the specific category you want to select: ')
     return Number(userChoice) - 1
   }
 
-  #selectCategoryByIndex(categoryIndex) {
+  #selectCategoryByIndex (categoryIndex) {
     return this.#isValidCategoryIndex(categoryIndex) ? this.#getExpenseCategories()[categoryIndex] : null
   }
 
-  #isValidCategoryIndex(categoryIndex) {
+  #isValidCategoryIndex (categoryIndex) {
     const categories = this.#getExpenseCategories()
     return categoryIndex >= 0 && categoryIndex < categories.length
   }
 
-  #displayCategorySelectionMessage(categorySelected) {
+  #displayCategorySelectionMessage (categorySelected) {
     if (categorySelected) {
       this.#createSelectedCategoryMessage(categorySelected)
     } else {
@@ -159,12 +157,16 @@ export class BudgetAssistant {
     }
   }
 
-  #createSelectedCategoryMessage(categorySelected) {
+  #createSelectedCategoryMessage (categorySelected) {
     console.log('You have selected ' + categorySelected)
   }
 
-  #createInvalidCategoryMessage() {
+  #createInvalidCategoryMessage () {
     console.log('Invalid category selection. Please try again.')
   }
 
+  askUserToContinue () {
+    const response = readlineSync.question('Would you like to add more expenses or switch months? (y/n): ')
+    return response
+  }
 }

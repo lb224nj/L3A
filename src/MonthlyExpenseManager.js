@@ -1,15 +1,22 @@
 import { MonthlyExpenseRecord } from './MonthlyExpenseRecord.js'
+import { ExpenseData } from './ExpenseData.js'
 
 export class MonthlyExpenseManager {
-  constructor() {
+  constructor () {
+    this.expenseData = new ExpenseData('data.json')
+    const loadedData= this.expenseData.loadExpenseData() || {}
+
     this.monthlyExpenses = {}
+    for (const month in loadedData) {
+      this.monthlyExpenses[month] = Object.assign(new MonthlyExpenseRecord(), loadedData[month])
+    }
   }
 
   addExpenseToMonth (month, expense) {
     const monthlyExpenseRecord = this.addMonthlyExpenseRecord(month)
     monthlyExpenseRecord.addExpense(expense.category, expense.amount)
+    this.expenseData.saveExpenseData(this.monthlyExpenses)
   }
-
 
   addMonthlyExpenseRecord (month) {
     if (!this.#hasMonthlyExpenseRecord(month)) {
