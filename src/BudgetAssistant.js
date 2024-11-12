@@ -166,6 +166,5 @@ export class BudgetAssistant {
   #createInvalidCategoryMessage() {
     console.log('Invalid category selection. Please try again.')
   }
-  
 
 }
