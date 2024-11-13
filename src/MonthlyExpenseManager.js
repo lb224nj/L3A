@@ -4,7 +4,7 @@ import { ExpenseData } from './ExpenseData.js'
 export class MonthlyExpenseManager {
   constructor () {
     this.expenseData = new ExpenseData('data.json')
-    const loadedData= this.expenseData.loadExpenseData() || {}
+    const loadedData = this.expenseData.loadExpenseData() || {}
 
     this.monthlyExpenses = {}
     for (const month in loadedData) {
@@ -27,7 +27,7 @@ export class MonthlyExpenseManager {
   }
 
   #hasMonthlyExpenseRecord (month) {
-    return this.monthlyExpenses.hasOwnProperty(month)
+    return Object.prototype.hasOwnProperty.call(this.monthlyExpenses, month)
   }
 
   #getMonthlyExpenseRecord (month) {

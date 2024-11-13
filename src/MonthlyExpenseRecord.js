@@ -28,7 +28,7 @@ export class MonthlyExpenseRecord {
   }
 
   #isValidCategory (category) {
-    return this.expenses.hasOwnProperty(category)
+    return Object.prototype.hasOwnProperty.call(this.expenses, category)
   }
 
   #increaseExpense (category, amount) {
