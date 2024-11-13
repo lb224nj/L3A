@@ -1,11 +1,13 @@
 import readlineSync from 'readline-sync'
+import { BudgetInsight } from './BudgetInsight.js'
 import { MonthlyExpenseManager } from './MonthlyExpenseManager.js'
 import { MonthlyExpenseRecord } from './MonthlyExpenseRecord.js'
 
-export class BudgetAssistant {
+export class BudgetView {
   constructor () {
     this.currentMonth = null
     this.monthlyExpenseManager = new MonthlyExpenseManager()
+    this.budgetInsight = new BudgetInsight(this.monthlyExpenseManager)
     this.validMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     this.expenseCategories = new MonthlyExpenseRecord()
   }
@@ -15,7 +17,7 @@ export class BudgetAssistant {
   }
 
   #createWelcomeMessage () {
-    console.log('Welcome to the Budget Assistant!')
+    console.log('Welcome to the Budget View!')
   }
 
   displaySelectMonthMessage () {
@@ -165,8 +167,13 @@ export class BudgetAssistant {
     console.log('Invalid category selection. Please try again.')
   }
 
-  askUserToContinue () {
-    const response = readlineSync.question('Would you like to add more expenses or switch months? (y/n): ')
-    return response
+  displayTotalYearlyExpenseForCategory (category) {
+    const totalExpenses = this.budgetInsight.getTotalYearlyExpenseForCategory(category)
+    console.log(`Total yearly expenses for ${category}: $${totalExpenses}`)
+  }
+
+  displayMonthlyAverageExpenseForCategory (category) {
+    const averageExpense = this.budgetInsight.getAverageMonthlyExpenseForCategory(category)
+    console.log(`Average monthly expense for ${category}: $${averageExpense}`)
   }
 }
