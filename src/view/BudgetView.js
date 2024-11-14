@@ -1,7 +1,7 @@
 import readlineSync from 'readline-sync'
-import { BudgetInsight } from './BudgetInsight.js'
-import { MonthlyExpenseManager } from './MonthlyExpenseManager.js'
-import { MonthlyExpenseRecord } from './MonthlyExpenseRecord.js'
+import { BudgetInsight } from '../controller/BudgetInsight.js'
+import { MonthlyExpenseManager } from '../model/MonthlyExpenseManager.js'
+import { MonthlyExpenseRecord } from '../model/MonthlyExpenseRecord.js'
 
 export class BudgetView {
   constructor () {
@@ -87,8 +87,6 @@ export class BudgetView {
   }
 
   promptAddExpense (selectedCategory) {
-    if (!this.#isMonthSelected()) return
-
     if (selectedCategory) {
       const expenseAmount = this.#getExpenseAmount()
       this.#handleExpenseAmount(selectedCategory, expenseAmount)
@@ -110,31 +108,25 @@ export class BudgetView {
   }
 
   displayBalanceForMonth () {
-    if (this.#isMonthSelected()) {
       const totalExpenses = this.monthlyExpenseManager.getTotalExpensesForMonth(this.currentMonth)
       this.#createBalanceMessage(totalExpenses)
-    }
+    
   }
 
   #createBalanceMessage (totalExpenses) {
     console.log(`Total expenses for ${this.currentMonth}: $${totalExpenses}`)
   }
 
-  handleCategorieSelection () {
-    if (!this.#isMonthSelected()) return
+  handleCategorieSelection (needsMonth = false) {
+    if (needsMonth && !this.currentMonth) {
+      console.log('Select a month first.')
+      return null
+    }
 
     const categoryIndex = this.#getUserCategoryChoice()
     const categorySelected = this.#selectCategoryByIndex(categoryIndex)
     this.#displayCategorySelectionMessage(categorySelected)
     return categorySelected
-  }
-
-  #isMonthSelected () {
-    if (!this.currentMonth) {
-      console.log('Select a month first.')
-      return false
-    }
-    return true
   }
 
   #getUserCategoryChoice () {

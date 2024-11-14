@@ -1,4 +1,4 @@
-import { MeanValueCalculations } from '../L2M/src/calculations/meanValueCalculations.js'
+import { MeanValueCalculations } from '../../L2M/src/calculations/meanValueCalculations.js'
 
 export class BudgetInsight {
   constructor (MonthlyExpenseManager) {

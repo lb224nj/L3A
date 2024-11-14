@@ -1,4 +1,4 @@
-import { BudgetView } from './BudgetView.js'
+import { BudgetView } from './view/BudgetView.js'
 import readlineSync from 'readline-sync'
 
 const app = new BudgetView()
@@ -8,26 +8,21 @@ let continueApp = true
 let continueMonth = true
 
 while (continueApp) {
-  if (!app.currentMonth || !continueMonth) {
-    app.displaySelectMonthMessage()
-    app.displayMonthOptions()
-    app.selectMonth()
-  }
-
-  continueMonth = true
-
-  while (continueMonth) {
     console.log('What do you want to do?')
     console.log('1. Add an expense to a category')
     console.log('2. View yearly total expenses for a category')
-    console.log('3. View average monthly expenses for a category')
-    console.log('4. Switch month')
-    console.log('5. Exit tha app')
+    console.log('3. View average monthly expenses for a category (based on number of months it is included in, not all 12 months)')
+    console.log('4. Exit tha app')
 
-    const userAction = readlineSync.question('Choose an option (1-5): ')
+    const userAction = readlineSync.question('Choose an option (1-4): ')
 
     switch (userAction) {
       case '1': {
+        if (!app.currentMonth || !continueMonth) {
+          app.displaySelectMonthMessage()
+          app.displayMonthOptions()
+          app.selectMonth()
+        }
         app.displayExpenseCategoriesOptions()
         const selectedCategoryToAddExpenseTo = app.handleCategorieSelection()
         if (selectedCategoryToAddExpenseTo) {
@@ -55,12 +50,7 @@ while (continueApp) {
         break
       }
 
-      case '4': {
-        continueMonth = false
-        break
-      }
-
-      case '5':
+      case '4':
         continueMonth = false
         continueApp = false
         console.log('Exiting Budget View.')
@@ -70,5 +60,5 @@ while (continueApp) {
         console.log('Select a valid option (1-5).')
         break
     }
-  }
+  
 }
