@@ -12,5 +12,8 @@
 3. Compare months
 - Users should be able to compare months to each other to see differences between spending patterns.
 
-3. Data management
-- USerc can save monthly expense data in JSON file format.
+4. Data management
+- Users can save monthly expense data in JSON file format.
+
+5. See total expense for a specific category
+- Users should be able to check their total expenses for a scpecific category. 
