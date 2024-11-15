@@ -6,14 +6,35 @@ export class ExpenseData {
   }
 
   saveExpenseData (data) {
-    fs.writeFileSync(this.nameOfFile, JSON.stringify(data, null, 2))
+    const convetedToJson = this.#convertToJson(data)
+    this.#writeToFile(convetedToJson)
+  }
+
+  #convertToJson (data) {
+    return JSON.stringify(data, null, 2)
+  }
+
+  #writeToFile (data) {
+    fs.writeFileSync(this.nameOfFile, data)
   }
 
   loadExpenseData () {
-    if (fs.existsSync(this.nameOfFile)) {
-      const data = fs.readFileSync(this.nameOfFile, 'utf8')
-      return JSON.parse(data)
+    if (this.#fileExists()) {
+      const data = this.#readFromFile()
+      return this.#convertFromJson(data)
     }
     return {}
+  }
+
+  #fileExists () {
+    return fs.existsSync(this.nameOfFile)
+  }
+
+  #readFromFile () {
+    return fs.readFileSync(this.nameOfFile, 'utf8')
+  }
+
+  #convertFromJson (data) {
+    return JSON.parse(data)
   }
 }

@@ -4,21 +4,37 @@ import { ExpenseData } from './ExpenseData.js'
 export class MonthlyExpenseManager {
   constructor () {
     this.expenseData = new ExpenseData('data.json')
-    const loadedData = this.expenseData.loadExpenseData() || {}
+    this.monthlyExpenses = this.#prepareMonthlyExpenses()
+  }
 
-    this.monthlyExpenses = {}
+  #prepareMonthlyExpenses () {
+    const loadedData = this.expenseData.loadExpenseData() || {}
+    return this.#transformDataToRecords(loadedData)
+  }
+
+  #transformDataToRecords (loadedData) {
+    const records = {}
     for (const month in loadedData) {
-      this.monthlyExpenses[month] = Object.assign(new MonthlyExpenseRecord(), loadedData[month])
+      records [month] = Object.assign(new MonthlyExpenseRecord(), loadedData[month])
     }
+    return records
   }
 
   addExpenseToMonth (month, expense) {
-    const monthlyExpenseRecord = this.addMonthlyExpenseRecord(month)
-    monthlyExpenseRecord.addExpense(expense.category, expense.amount)
+    const monthlyExpenseRecord = this.ensureMonthlyExpenseRecord(month)
+    this.#addExpenseToRecord(monthlyExpenseRecord, expense)
+    this.#saveMonthlyExpenses()
+  }
+
+  #addExpenseToRecord (record, expense) {
+    record.addExpense(expense.category, expense.amount)
+  }
+
+  #saveMonthlyExpenses () {
     this.expenseData.saveExpenseData(this.monthlyExpenses)
   }
 
-  addMonthlyExpenseRecord (month) {
+  ensureMonthlyExpenseRecord (month) {
     if (!this.#hasMonthlyExpenseRecord(month)) {
       return this.#createAndStoreMonthlyExpenseRecord(month)
     } else {

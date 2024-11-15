@@ -2,7 +2,7 @@
   "January": {
     "month": "January",
     "expenses": {
-      "groceries": 2524,
+      "groceries": 2526,
       "utilities": 0,
       "entertainment": 0,
       "transportation": 0,
@@ -63,6 +63,20 @@
       "entertainment": 0,
       "transportation": 0,
       "clothing": 10,
+      "education": 0,
+      "healthcare": 0,
+      "rent": 100,
+      "other": 0
+    }
+  },
+  "December": {
+    "month": "December",
+    "expenses": {
+      "groceries": 0,
+      "utilities": 12,
+      "entertainment": 0,
+      "transportation": 1211,
+      "clothing": 100,
       "education": 0,
       "healthcare": 0,
       "rent": 0,

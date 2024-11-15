@@ -8,21 +8,33 @@ export class BudgetInsight {
 
   getTotalYearlyExpenseForCategory (category) {
     const allMonthlyExpenses = this.MonthlyExpenseManager.getAllMonthlyExpenseRecords()
-    let totalExpenses = 0
+    return this.#calculateTotalExpenseForCategory(allMonthlyExpenses, category)
+  }
 
-    for (const monthlyExpense of allMonthlyExpenses) {
+  #calculateTotalExpenseForCategory (expenses, category) {
+    let totalExpenses = 0
+    for (const monthlyExpense of expenses) {
       totalExpenses += monthlyExpense.expenses[category] || 0
     }
     return totalExpenses
   }
 
   getAverageMonthlyExpenseForCategory (category) {
-    const allMonthlyExpenses = this.MonthlyExpenseManager.getAllMonthlyExpenseRecords()
-    const expenses = []
-
-    for (const monthlyExpense of allMonthlyExpenses) {
-      expenses.push(monthlyExpense.expenses[category] || 0)
-    }
+    const allMonthlyExpenses = this.#getAllMonthlyExpenses()
+    const expenses = this.#getCategoryExpenses(allMonthlyExpenses, category)
     return this.meanValueCalculator.calculateMeanValue(expenses)
+   
+  }
+
+  #getAllMonthlyExpenses () {
+    return this.MonthlyExpenseManager.getAllMonthlyExpenseRecords()
+  }
+
+  #getCategoryExpenses (expenses, category) {
+    const categoryExpenses = []
+    for (const monthlyExpense of expenses) {
+      categoryExpenses.push(monthlyExpense.expenses[category] || 0)
+    }
+    return categoryExpenses
   }
 }

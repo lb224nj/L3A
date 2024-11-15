@@ -4,7 +4,11 @@ export class MonthlyExpenseRecord {
    */
   constructor (month) {
     this.month = month
-    this.expenses = {
+    this.expenses = this.#createCategories()
+  }
+
+  #createCategories () {
+    return {
       groceries: 0,
       utilities: 0,
       entertainment: 0,
@@ -36,19 +40,22 @@ export class MonthlyExpenseRecord {
   }
 
   getTotalExpenses () {
-    const expensesArray = this.#getExpensesArray()
-    return this.#calculateTotalExpenses(expensesArray)
+    return this.#calculateTotalExpenses()
   }
 
   #getExpensesArray () {
     return Object.values(this.expenses)
   }
 
-  #calculateTotalExpenses (expensesArray) {
-    let total = 0
-    for (let i = 0; i < expensesArray.length; i++) {
-      total += expensesArray[i]
+  #calculateTotalExpenses () {
+    return this.#sumExpenses(this.#getExpensesArray())
+  }
+
+  #sumExpenses (expensesArray) {
+    let totalExpenses = 0
+    for (const expense of expensesArray) {
+      totalExpenses += expense
     }
-    return total
+    return totalExpenses
   }
 }
