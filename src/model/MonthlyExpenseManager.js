@@ -3,19 +3,22 @@ import { ExpenseData } from './ExpenseData.js'
 
 export class MonthlyExpenseManager {
   constructor () {
+    // Initialize with expense data stored in data.json and prepare monthly expense records.
     this.expenseData = new ExpenseData('data.json')
     this.monthlyExpenses = this.#prepareMonthlyExpenses()
   }
 
   #prepareMonthlyExpenses () {
+    // Return an empty object if no data is loaded.
     const loadedData = this.expenseData.loadExpenseData() || {}
     return this.#transformDataToRecords(loadedData)
   }
 
   #transformDataToRecords (loadedData) {
+    // Convert loaded data to MonthlyExpenseRecord instances for every month.
     const records = {}
     for (const month in loadedData) {
-      records [month] = Object.assign(new MonthlyExpenseRecord(), loadedData[month])
+      records[month] = Object.assign(new MonthlyExpenseRecord(), loadedData[month])
     }
     return records
   }

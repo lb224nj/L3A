@@ -33,6 +33,7 @@ export class BudgetView {
   }
 
   #createMonthOptions () {
+    // Displays the month options in a numbered list.
     for (let i = 0; i < this.validMonths.length; i++) {
       console.log((i + 1) + '. ' + this.validMonths[i])
     }
@@ -59,6 +60,7 @@ export class BudgetView {
   }
 
   #isValidMonthIndex (indexOfMonth) {
+    // Checks if the selected month index is within valid range (0-11).
     return indexOfMonth >= 0 && indexOfMonth < this.validMonths.length
   }
 
@@ -75,6 +77,7 @@ export class BudgetView {
   }
 
   #createExpenseCategorieOptions () {
+    // List available expense categories for user selection.
     const categories = this.#getExpenseCategories()
     console.log('Select an expense category:')
     categories.forEach((category, index) => {
@@ -108,9 +111,8 @@ export class BudgetView {
   }
 
   displayBalanceForMonth () {
-      const totalExpenses = this.monthlyExpenseManager.getTotalExpensesForMonth(this.currentMonth)
-      this.#createBalanceMessage(totalExpenses)
-    
+    const totalExpenses = this.monthlyExpenseManager.getTotalExpensesForMonth(this.currentMonth)
+    this.#createBalanceMessage(totalExpenses)
   }
 
   #createBalanceMessage (totalExpenses) {
@@ -139,6 +141,7 @@ export class BudgetView {
   }
 
   #isValidCategoryIndex (categoryIndex) {
+    // Checks if the selected category index is inside the valid range.
     const categories = this.#getExpenseCategories()
     return categoryIndex >= 0 && categoryIndex < categories.length
   }

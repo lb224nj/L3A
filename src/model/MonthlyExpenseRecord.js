@@ -32,6 +32,7 @@ export class MonthlyExpenseRecord {
   }
 
   #isValidCategory (category) {
+    // Checks if the category exists in the list of categories.
     return Object.prototype.hasOwnProperty.call(this.expenses, category)
   }
 

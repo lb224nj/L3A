@@ -15,6 +15,7 @@ export class ExpenseData {
   }
 
   #writeToFile (data) {
+    // Overwrites the file if already exists.
     fs.writeFileSync(this.nameOfFile, data)
   }
 
@@ -23,6 +24,7 @@ export class ExpenseData {
       const data = this.#readFromFile()
       return this.#convertFromJson(data)
     }
+    // Return empty object if file does not exist.
     return {}
   }
 

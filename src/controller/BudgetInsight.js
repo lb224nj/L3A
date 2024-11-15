@@ -3,6 +3,7 @@ import { MeanValueCalculations } from '../../L2M/src/calculations/meanValueCalcu
 export class BudgetInsight {
   constructor (MonthlyExpenseManager) {
     this.MonthlyExpenseManager = MonthlyExpenseManager
+    // Performs statistical calculations related to mean values. Imported from Submodule L2M.
     this.meanValueCalculator = new MeanValueCalculations()
   }
 
@@ -13,6 +14,7 @@ export class BudgetInsight {
 
   #calculateTotalExpenseForCategory (expenses, category) {
     let totalExpenses = 0
+    // Sum  expenses for given category, defaults to 0 if category is not present.
     for (const monthlyExpense of expenses) {
       totalExpenses += monthlyExpense.expenses[category] || 0
     }
@@ -23,7 +25,6 @@ export class BudgetInsight {
     const allMonthlyExpenses = this.#getAllMonthlyExpenses()
     const expenses = this.#getCategoryExpenses(allMonthlyExpenses, category)
     return this.meanValueCalculator.calculateMeanValue(expenses)
-   
   }
 
   #getAllMonthlyExpenses () {
@@ -32,6 +33,7 @@ export class BudgetInsight {
 
   #getCategoryExpenses (expenses, category) {
     const categoryExpenses = []
+    // Get expenses for given category from each month, defaults to 0 if category is not present.
     for (const monthlyExpense of expenses) {
       categoryExpenses.push(monthlyExpense.expenses[category] || 0)
     }
