@@ -27,6 +27,8 @@ Bild visar hur jag försöker uppnå "Conceptual Affinity" genom att ha relatera
 ## Kap 6
 Det här är väl att av de i mina ögon svårare kapitlen att implementera och jag tycker i ärlighetens namn att sådana här mer teknikspecifika riktlinjer är svåra att följa och uppfylla. Förmodligen för att jag inte helt förstår det. Jag misstänker också att detta kapitels principer är lättare att implementera i ett språk som Java som är mer objektorienterat. En längre reflektion kring det här kapitlet och uppgiften i stort är att jag kan känna viss besvikelse över att jag främst förstår och uppfyller principer som jag känner mig relatvit trygg i och har tränat på tidigare. På grund av tidsbrist och jag helt enkelt är långsam på att skriva kod, blir det lätt att man faller tillbaka till saker man behärskar istället för att utmana sig själv mer och verkligen utvecklas.  
 
-Hur som helst så har jag försökt att följa principerna och jag tycker jag har gömt data och inkapslat saker på ett bra vis vid vissa partier. I bilden nedan skyddas exempelvis "expenses" så att användare inte kan modifiera objektet direkt, utan endast genom den publika metoden "addExpense" ienighet med kapitlets resonemang kring "DAta Abstraction" och värdet i att inte exponera och skydda detaljer kring data.
+Hur som helst så har jag försökt att följa principerna och jag tycker jag har gömt data och inkapslat saker på ett bra vis vid vissa partier. I bilden nedan skyddas exempelvis "expenses" så att användare inte kan modifiera objektet direkt, utan endast genom den publika metoden "addExpense" i enighet med kapitlets resonemang kring "Data Abstraction" och värdet i att inte exponera och skydda detaljer kring data.
 
 ![Screenshot på kommentar](./screenshots/inkapsling.png)
+
+## Kap 7

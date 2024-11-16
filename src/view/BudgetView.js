@@ -41,12 +41,15 @@ export class BudgetView {
 
   selectMonth () {
     const indexOfMonth = this.#getUserMonthChoice()
+    this.#validateMonthIndex(indexOfMonth)
     this.#handleMonthSelection(indexOfMonth)
   }
 
   #getUserMonthChoice () {
     const userChoice = readlineSync.question('Enter the number of specific month you want to select: ')
-    return Number(userChoice) - 1
+   const indexOfMonth = Number(userChoice) - 1
+   this.#validateMonthIndex(indexOfMonth)
+    return indexOfMonth
   }
 
   #handleMonthSelection (indexOfMonth) {
@@ -90,18 +93,17 @@ export class BudgetView {
   }
 
   promptAddExpense (selectedCategory) {
-    if (selectedCategory) {
-      const expenseAmount = this.#getExpenseAmount()
-      this.#handleExpenseAmount(selectedCategory, expenseAmount)
-    }
+    this.#validateCategoryIndex(selectedCategory)
+    const expenseAmount = this.#getExpenseAmount()
+    this.#validateExpenseAmount(expenseAmount)
+    this.#handleExpenseAmount(selectedCategory, expenseAmount)
+    
   }
 
   #getExpenseAmount () {
-    const expenseAmount = parseFloat(readlineSync.question('Enter the expense amount: '))
-    if (isNaN(expenseAmount)) {
-      console.log('Invalid expense amount. Try again.')
-      return this.#getExpenseAmount()
-    }
+    const userInput = readlineSync.question('Enter the expense amount: ')
+    const expenseAmount = parseFloat(userInput)
+    this.#validateExpenseAmount(expenseAmount)
     return expenseAmount
   }
 
@@ -133,17 +135,13 @@ export class BudgetView {
 
   #getUserCategoryChoice () {
     const userChoice = readlineSync.question('Enter the number of the specific category you want to select: ')
-    return Number(userChoice) - 1
+    const categoryIndex = Number(userChoice) - 1
+    this.#validateCategoryIndex(categoryIndex)
+    return categoryIndex
   }
 
   #selectCategoryByIndex (categoryIndex) {
-    return this.#isValidCategoryIndex(categoryIndex) ? this.#getExpenseCategories()[categoryIndex] : null
-  }
-
-  #isValidCategoryIndex (categoryIndex) {
-    // Checks if the selected category index is inside the valid range.
-    const categories = this.#getExpenseCategories()
-    return categoryIndex >= 0 && categoryIndex < categories.length
+    return this.#getExpenseCategories()[categoryIndex]
   }
 
   #displayCategorySelectionMessage (categorySelected) {
@@ -163,12 +161,35 @@ export class BudgetView {
   }
 
   displayTotalYearlyExpenseForCategory (category) {
+    this.#validateCategoryIndex(category)
+
     const totalExpenses = this.budgetInsight.getTotalYearlyExpenseForCategory(category)
     console.log(`Total yearly expenses for ${category}: $${totalExpenses}`)
   }
 
   displayMonthlyAverageExpenseForCategory (category) {
+    this.#validateCategoryIndex(category)
+
     const averageExpense = this.budgetInsight.getAverageMonthlyExpenseForCategory(category)
     console.log(`Average monthly expense for ${category}: $${averageExpense}`)
+  }
+
+  #validateMonthIndex (indexOfMonth) {
+    if (indexOfMonth < 0 || indexOfMonth >= this.validMonths.length) {
+      throw new Error('The month index is invalid. Select a valid month index.')
+    }
+  }
+
+  #validateCategoryIndex(categoryIndex) {
+    const categories = this.#getExpenseCategories()
+    if (categoryIndex < 0 || categoryIndex >= categories.length) {
+      throw new Error('The category index is invalid. Select a valid category index.')
+    }
+  }
+
+  #validateExpenseAmount (amount) {
+    if (isNaN(amount) || amount <= 0) {
+      throw new Error('Expense amount should be a number that is not negative.')
+    }
   }
 }

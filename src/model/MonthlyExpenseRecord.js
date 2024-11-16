@@ -21,19 +21,16 @@ export class MonthlyExpenseRecord {
     }
   }
 
-  getcategoriesOfExpenses () {
+  getCategoriesOfExpenses () {
     return Object.keys(this.expenses)
   }
 
   addExpense (category, amount) {
-    if (this.#isValidCategory(category)) {
-      this.#increaseExpense(category, amount)
-    }
-  }
+    this.#validateCategory(category)
+    this.#validateAmount(amount)
 
-  #isValidCategory (category) {
-    // Checks if the category exists in the list of categories.
-    return Object.prototype.hasOwnProperty.call(this.expenses, category)
+    this.#increaseExpense(category, amount)
+    
   }
 
   #increaseExpense (category, amount) {
@@ -58,5 +55,18 @@ export class MonthlyExpenseRecord {
       totalExpenses += expense
     }
     return totalExpenses
+  }
+
+
+  #validateCategory (category) {
+    if (!category || typeof category !== 'string') {
+      throw new Error('Category should be a non-empty string.')
+    }
+  }
+
+  #validateAmount (amount) {
+    if (typeof amount !== 'number' || amount < 0) {
+      throw new Error('Amount should be a number that is not negative.')
+    }
   }
 }

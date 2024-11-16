@@ -4,6 +4,13 @@ import readlineSync from 'readline-sync'
 const app = new BudgetView()
 app.displayWelcomeMessage()
 
+function validateUserAction(userAction) {
+  const validActions = ['1', '2', '3', '4']
+  if (!validActions.includes(userAction)) {
+    throw new Error('Invalid option. Select a valid option (1-4).')
+  }
+}
+
 let continueApp = true
 
 while (continueApp) {
@@ -14,6 +21,7 @@ while (continueApp) {
   console.log('4. Exit tha app')
 
   const userAction = readlineSync.question('Choose an option (1-4): ')
+  validateUserAction(userAction)
 
   switch (userAction) {
     case '1': {
@@ -58,4 +66,5 @@ while (continueApp) {
       console.log('Select a valid option (1-5).')
       break
   }
+
 }

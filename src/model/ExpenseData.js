@@ -2,10 +2,12 @@ import fs from 'fs'
 
 export class ExpenseData {
   constructor (nameOfFile = 'data.json') {
+    this.#validateFileName(nameOfFile)
     this.nameOfFile = nameOfFile
   }
 
   saveExpenseData (data) {
+    this.#validateData(data)
     const convetedToJson = this.#convertToJson(data)
     this.#writeToFile(convetedToJson)
   }
@@ -38,5 +40,17 @@ export class ExpenseData {
 
   #convertFromJson (data) {
     return JSON.parse(data)
+  }
+
+  #validateFileName (nameOfFile) {
+    if (!nameOfFile || typeof nameOfFile !== 'string') {
+      throw new Error('File name should be a non-empty string.')
+    }
+  }
+
+  #validateData (data) {
+    if (data === null || typeof data !== 'object') {
+      throw new Error('Data should be a non-null object.')
+    }
   }
 }

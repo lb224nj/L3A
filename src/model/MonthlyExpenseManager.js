@@ -24,6 +24,9 @@ export class MonthlyExpenseManager {
   }
 
   addExpenseToMonth (month, expense) {
+    this.#validateMonth(month)
+    this.#validateExpense(expense)
+
     const monthlyExpenseRecord = this.ensureMonthlyExpenseRecord(month)
     this.#addExpenseToRecord(monthlyExpenseRecord, expense)
     this.#saveMonthlyExpenses()
@@ -38,6 +41,8 @@ export class MonthlyExpenseManager {
   }
 
   ensureMonthlyExpenseRecord (month) {
+    this.#validateMonth(month)
+
     if (!this.#hasMonthlyExpenseRecord(month)) {
       return this.#createAndStoreMonthlyExpenseRecord(month)
     } else {
@@ -72,6 +77,8 @@ export class MonthlyExpenseManager {
   }
 
   getTotalExpensesForMonth (month) {
+    this.#validateMonth(month)
+
     const monthlyExpenseRecord = this.#getMonthlyExpenseRecord(month)
     if (monthlyExpenseRecord) {
       return monthlyExpenseRecord.getTotalExpenses()
@@ -79,4 +86,20 @@ export class MonthlyExpenseManager {
       return 0
     }
   }
+
+  #validateMonth (month) {
+    if (!month || typeof month !== 'string') {
+      throw new Error('Month should be a non-empty string.')
+    }
+  }
+
+  #validateExpense (expense) {
+    if (
+    !expense || typeof expense !== 'object' ||
+    typeof expense.category !== 'string' ||
+    typeof expense.amount !== 'number'
+    ) {
+      throw new Error('Expense should be an object with a a valid category and amount.')
+  }
+}
 }
