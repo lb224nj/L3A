@@ -22,28 +22,36 @@ Formattering har variet en naturlig del i kodningen genom hela utbildningen i oc
 
 Bild visar hur jag försöker uppnå "Conceptual Affinity" genom att ha relaterade metoder nära. Logik för visa månader och att välja månad är i min tanke starkt förknippade med varandra i kodens flöde.
 
-![Screenshot på kommentar](./screenshots/formatterad.png)
+![Screenshot på relaterade metoder nära varandra](./screenshots/formatterad.png)
 
 ## Kap 6
 Det här är väl att av de i mina ögon svårare kapitlen att implementera och jag tycker i ärlighetens namn att sådana här mer teknikspecifika riktlinjer är svåra att följa och uppfylla. Förmodligen för att jag inte helt förstår det. Jag misstänker också att detta kapitels principer är lättare att implementera i ett språk som Java som är mer objektorienterat. En längre reflektion kring det här kapitlet och uppgiften i stort är att jag kan känna viss besvikelse över att jag främst förstår och uppfyller principer som jag känner mig relatvit trygg i och har tränat på tidigare. På grund av tidsbrist och jag helt enkelt är långsam på att skriva kod, blir det lätt att man faller tillbaka till saker man behärskar istället för att utmana sig själv mer och verkligen utvecklas.  
 
 Hur som helst så har jag försökt att följa principerna och jag tycker jag har gömt data och inkapslat saker på ett bra vis vid vissa partier. I bilden nedan skyddas exempelvis "expenses" så att användare inte kan modifiera objektet direkt, utan endast genom den publika metoden "addExpense" i enighet med kapitlets resonemang kring "Data Abstraction" och värdet i att inte exponera och skydda detaljer kring data.
 
-![Screenshot på kommentar](./screenshots/inkapsling.png)
+![Screenshot på exempel på inkapsling](./screenshots/inkapsling.png)
 
 ## Kap 7
 Vissa saker kring bokens principer om Error Handling tycker jag jag har följt medan andra är bristande. Segmentet som handlar om "Define the Normal Flow" och att separera "buisness logic" och "error handling" har jag delvis följt när jag skapat separata metoder för validering som kallas av de metoder där de behövs. För att separera det ännu tydligare kunde jag dock exempelvis gjort en separat klass för validering. Jag tycker också jag kunde ha använt mig av "Try Catch block" i L3A som frespråkas i boken med huvudsyfte att man säkerställer att programmet inte kraschar och att fel kan hanteras på ett bra sätt. Den stora anledningen till att jag gjort felhantering enligt bilden nedan är att jag tycker det är lätt att förstå och använda. Återigen kan jag känna viss besvikelse över att koden blir bristande, då jag saknar kunskap och att jag upplever det som för omfattande för att följa boken helt och hållet.
 
-![Screenshot på kommentar](./screenshots/felhantering.png)
+![Screenshot på valideringsmetoder för felhantering](./screenshots/felhantering.png)
 
 ## Kap 8
 Detta kapitel har inte påverkat min kod nämnvärt då jag inte använt tredjepartskod is vidae stor utsträckning. Dessutom upplever jag det hela som ganska abstrakt och lite svårt att förstå hur jag exakt ska tänka kring det gällande processen att skriva kod. Jag har använt "readlineSync" och dubbelkollat om jag följt bokens rekommendationer kring framförallt värdet i att hålla användandet av tredjepartskod koncentrerat utan att skicka runt instanser på flera ställen. Jag tänker också att inkaplsingen hjäper om jag någon gång skulle vilje byta ut "readlineSync" mot något annat i framtiden enligt bilden nedan.
 
-![Screenshot på kommentar](./screenshots/boundaries.png)
+![Screenshot på privat metod där readlineSync förekommer](./screenshots/boundaries.png)
 
 ## Kap 9
 I vanlig ordning tycker jag jag uppfyller vissa delar medan andra delar är sämre kring kapitlet. Jag tycker mina manuella tester håller relativt hög läsbarhet enligt principen om "Clean Tests". Efter att ha gjort mannuella tester i flera kurser nu tycker jag syftet och vikten av att de ska vara tydliga blir allt mer klar. Jag anser också jag har följt "Single Concept per Test" generellt bra samtidigt som jag dock kunde ha gjort detta ännu tydligare. I bilden nedan från L2M visas ett exempel där jag testar tre olika arrays i samma block. Dessa kunde ha delats in i tre olika separata tester där de då skulle syftat till giltig array, array med en nolla och ogiltig array var för sig. Detta hade varit lättare att underhålla men å andra sidan tagit längre tid att bygga. Därav kanske jag borde använt mig av automatiska enhetstester.
 
-![Screenshot på kommentar](./screenshots/tester.png)
+![Screenshot på tester](./screenshots/tester.png)
 
 ## Kap 10
+Detta kapitel har påverkat koden främst genom att jag har försökt hålla dem små. Om man kollar på tidigar eprojekt jag genomfört har klasserna ofta varit mer omfattande. Jag hade tankar på att hålla "MonthlyExpenseManager" och "MonthlyExpenseRecord" i en och samma  klass frpn start men insåg sedan på grund av boken att det är bättre att dela upp dem. Dels på grund av principen om att hålla dem små men också på grund av det resonemang boken för om "The Single Responsibility Principle" om att klasser endast ska ha en anledning att förändras. Dessutom rimmar detta bättre med oop principer. "MonthlyExpenseRecord" tycker jag följer detta relativt bra då klassens logik är starkt kopplad till hantering av en enskild månads kostnader. Dock inser jag nu att den kunde utvecklats till att följa "SRP" ännu bättre om jag exempelvis bröt ut valideringsmetoderna på bilden nedan och istället skötte valideringen i en separat klass.
+
+![Screenshot på metoder som kunde varit i separat klass](./screenshots/valideringsmetoder.png)
+
+## Kap 11
+Ytterligare ett kapitel som jag finner ganska avancerat och abstrakt. Den tydligaste aspekten jag atr med mig är helhetssynen på att syftet hela tiden måste vara tydligt oavsett abstraktionsnivå. Jag tror också att jag omedvetet har följt bokens resonemang om att använda den simplaste saken / tillvägagånssättet som kan fungera eftersom jag sällan vill använda komplexa lösningar då de är svåra för mig själv att förstå. Vidare kan man kanske argumentera för att jag delvis använder mig av "Dependency Injection" i "BudgetInsight". Hanteringen av "MonthlyExpenseManager" enligt bilden nedan kan vara av nytta om jag i framtiden exempelvis vill använda mig av en annan klass. Detta då den är lätt att byta ut eftersom den är "injected" vilket också i förlängningen kan påverka skalbarheten positivt om man som sagt vill byta ut klassen eller liknande. 
+
+![Screenshot på en form av dependency injection](./screenshots/injektion.png)
