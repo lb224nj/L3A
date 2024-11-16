@@ -32,3 +32,18 @@ Hur som helst så har jag försökt att följa principerna och jag tycker jag ha
 ![Screenshot på kommentar](./screenshots/inkapsling.png)
 
 ## Kap 7
+Vissa saker kring bokens principer om Error Handling tycker jag jag har följt medan andra är bristande. Segmentet som handlar om "Define the Normal Flow" och att separera "buisness logic" och "error handling" har jag delvis följt när jag skapat separata metoder för validering som kallas av de metoder där de behövs. För att separera det ännu tydligare kunde jag dock exempelvis gjort en separat klass för validering. Jag tycker också jag kunde ha använt mig av "Try Catch block" i L3A som frespråkas i boken med huvudsyfte att man säkerställer att programmet inte kraschar och att fel kan hanteras på ett bra sätt. Den stora anledningen till att jag gjort felhantering enligt bilden nedan är att jag tycker det är lätt att förstå och använda. Återigen kan jag känna viss besvikelse över att koden blir bristande, då jag saknar kunskap och att jag upplever det som för omfattande för att följa boken helt och hållet.
+
+![Screenshot på kommentar](./screenshots/felhantering.png)
+
+## Kap 8
+Detta kapitel har inte påverkat min kod nämnvärt då jag inte använt tredjepartskod is vidae stor utsträckning. Dessutom upplever jag det hela som ganska abstrakt och lite svårt att förstå hur jag exakt ska tänka kring det gällande processen att skriva kod. Jag har använt "readlineSync" och dubbelkollat om jag följt bokens rekommendationer kring framförallt värdet i att hålla användandet av tredjepartskod koncentrerat utan att skicka runt instanser på flera ställen. Jag tänker också att inkaplsingen hjäper om jag någon gång skulle vilje byta ut "readlineSync" mot något annat i framtiden enligt bilden nedan.
+
+![Screenshot på kommentar](./screenshots/boundaries.png)
+
+## Kap 9
+I vanlig ordning tycker jag jag uppfyller vissa delar medan andra delar är sämre kring kapitlet. Jag tycker mina manuella tester håller relativt hög läsbarhet enligt principen om "Clean Tests". Efter att ha gjort mannuella tester i flera kurser nu tycker jag syftet och vikten av att de ska vara tydliga blir allt mer klar. Jag anser också jag har följt "Single Concept per Test" generellt bra samtidigt som jag dock kunde ha gjort detta ännu tydligare. I bilden nedan från L2M visas ett exempel där jag testar tre olika arrays i samma block. Dessa kunde ha delats in i tre olika separata tester där de då skulle syftat till giltig array, array med en nolla och ogiltig array var för sig. Detta hade varit lättare att underhålla men å andra sidan tagit längre tid att bygga. Därav kanske jag borde använt mig av automatiska enhetstester.
+
+![Screenshot på kommentar](./screenshots/tester.png)
+
+## Kap 10
