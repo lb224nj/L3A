@@ -95,11 +95,11 @@ export class MonthlyExpenseManager {
 
   #validateExpense (expense) {
     if (
-    !expense || typeof expense !== 'object' ||
+      !expense || typeof expense !== 'object' ||
     typeof expense.category !== 'string' ||
     typeof expense.amount !== 'number'
     ) {
       throw new Error('Expense should be an object with a a valid category and amount.')
+    }
   }
-}
 }

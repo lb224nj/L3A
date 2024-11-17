@@ -30,7 +30,6 @@ export class MonthlyExpenseRecord {
     this.#validateAmount(amount)
 
     this.#increaseExpense(category, amount)
-    
   }
 
   #increaseExpense (category, amount) {
@@ -56,7 +55,6 @@ export class MonthlyExpenseRecord {
     }
     return totalExpenses
   }
-
 
   #validateCategory (category) {
     if (!category || typeof category !== 'string') {

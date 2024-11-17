@@ -47,8 +47,8 @@ export class BudgetView {
 
   #getUserMonthChoice () {
     const userChoice = readlineSync.question('Enter the number of specific month you want to select: ')
-   const indexOfMonth = Number(userChoice) - 1
-   this.#validateMonthIndex(indexOfMonth)
+    const indexOfMonth = Number(userChoice) - 1
+    this.#validateMonthIndex(indexOfMonth)
     return indexOfMonth
   }
 
@@ -97,7 +97,6 @@ export class BudgetView {
     const expenseAmount = this.#getExpenseAmount()
     this.#validateExpenseAmount(expenseAmount)
     this.#handleExpenseAmount(selectedCategory, expenseAmount)
-    
   }
 
   #getExpenseAmount () {
@@ -180,7 +179,7 @@ export class BudgetView {
     }
   }
 
-  #validateCategoryIndex(categoryIndex) {
+  #validateCategoryIndex (categoryIndex) {
     const categories = this.#getExpenseCategories()
     if (categoryIndex < 0 || categoryIndex >= categories.length) {
       throw new Error('The category index is invalid. Select a valid category index.')
